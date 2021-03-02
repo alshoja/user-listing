@@ -144,3 +144,7 @@ function next() {
   params.offset = params.next + 1;
   fetchUsers(params);
 }
+
+function reset(){
+  location.reload();
+}
