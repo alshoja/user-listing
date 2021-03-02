@@ -5,7 +5,29 @@ let params = {
   limit: 10,
   offset: 0,
   search: "",
+  next: 1,
+  prv: 1,
 };
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+// Delegating events since the element is a dynamic generated one
+document.addEventListener("click", function (e) {
+  if (e.target && e.target.id == "user-modal") {
+    modal.style.display = "block";
+    if (e.target.dataset.category != "undefined") {
+      fetchUserById(e.target.dataset.category);
+    }
+  }
+
+  if (e.target && e.target.id == "close") {
+    modal.style.display = "none";
+  }
+});
 
 function searchName() {
   const searchValue = document.getElementById("search").value;
@@ -15,11 +37,14 @@ function searchName() {
 
 function init(limitValue) {
   if (limitValue >= 10) {
+    document.getElementById("prv").classList.remove("disabled");
     params.limit = limitValue;
   } else {
+    document.getElementById("prv").classList.add("disabled");
+
     params.offset = 0;
   }
-  console.log('current tparam',params);
+  console.log("current tparam", params);
   fetchUsers(params);
 }
 
@@ -49,7 +74,7 @@ function fetchUsers({ limit, offset, search }) {
         .map((user, i) => {
           return `
           <tr id="app">
-          <td>${i + 1}</td>
+          <td>${user.userId + 1}</td>
           <td><a href="#" data-category="${
             user.userId
           }" id="user-modal">${toTitleCase(user.firstName)}</a></td>
@@ -58,6 +83,8 @@ function fetchUsers({ limit, offset, search }) {
           `;
         })
         .join("");
+      params.next = data[data.length - 1].userId;
+      console.log("current param", params);
       document.querySelector("#app").insertAdjacentHTML("afterend", html);
       document.getElementById("index-loader").style.display = "none";
     })
@@ -103,26 +130,6 @@ function toTitleCase(str) {
   });
 }
 
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-// Delegating events since the element is a dynamic generated one
-document.addEventListener("click", function (e) {
-  if (e.target && e.target.id == "user-modal") {
-    modal.style.display = "block";
-    if (e.target.dataset.category != "undefined") {
-      fetchUserById(e.target.dataset.category);
-    }
-  }
-
-  if (e.target && e.target.id == "close") {
-    modal.style.display = "none";
-  }
-});
-
 function clearTable() {
   let table = document.getElementById("tbId");
   var tbodyRowCount = table.tBodies[0].rows.length; // 3
@@ -132,4 +139,16 @@ function clearTable() {
     table.deleteRow(1);
   }
   document.getElementById("app").innerHTML = `<tr id="app"></tr>`;
+}
+
+function next() {
+  params.offset = params.next + 1;
+  console.log("next", params);
+  fetchUsers(params);
+}
+
+function previous() {
+  params.offset = params.prv;
+  console.log("prv", params);
+  fetchUsers(params);
 }
