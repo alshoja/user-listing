@@ -8,6 +8,10 @@ let params = {
   next: 1,
 };
 
+// fetching initial users
+fetchUsers(params);
+
+// close modal
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
@@ -28,7 +32,8 @@ document.addEventListener("click", function (e) {
   }
 });
 
-function init(limitValue) {
+
+function offsetChange(limitValue) {
   if (limitValue >= 10) {
     params.limit = limitValue;
   } else {
@@ -43,8 +48,7 @@ function searchName() {
   fetchUsers(params);
 }
 
-// fetching initial users
-fetchUsers(params);
+
 
 function fetchUsers({ limit, offset, search }) {
   var searchBool = search;
