@@ -6,7 +6,6 @@ let params = {
   offset: 0,
   search: "",
   next: 1,
-  prv: 1,
 };
 
 window.onclick = function (event) {
@@ -29,22 +28,18 @@ document.addEventListener("click", function (e) {
   }
 });
 
-function searchName() {
-  const searchValue = document.getElementById("search").value;
-  params.search = searchValue;
+function init(limitValue) {
+  if (limitValue >= 10) {
+    params.limit = limitValue;
+  } else {
+    params.offset = 0;
+  }
   fetchUsers(params);
 }
 
-function init(limitValue) {
-  if (limitValue >= 10) {
-    document.getElementById("prv").classList.remove("disabled");
-    params.limit = limitValue;
-  } else {
-    document.getElementById("prv").classList.add("disabled");
-
-    params.offset = 0;
-  }
-  console.log("current tparam", params);
+function searchName() {
+  const searchValue = document.getElementById("search").value;
+  params.search = searchValue;
   fetchUsers(params);
 }
 
@@ -52,7 +47,7 @@ function init(limitValue) {
 fetchUsers(params);
 
 function fetchUsers({ limit, offset, search }) {
-  var Svalue = search;
+  var searchBool = search;
   fetch(
     "https://hr.oat.taocloud.org/v1/users?name=" +
       search +
@@ -68,13 +63,12 @@ function fetchUsers({ limit, offset, search }) {
       return res.json();
     })
     .then((data) => {
-      console.log("data", data);
       clearTable();
       const html = data
         .map((user, i) => {
           return `
           <tr id="app">
-          <td>${user.userId + 1}</td>
+          <td>${search == "" ? user.userId + 1 : i + 1}</td>
           <td><a href="#" data-category="${
             user.userId
           }" id="user-modal">${toTitleCase(user.firstName)}</a></td>
@@ -83,8 +77,13 @@ function fetchUsers({ limit, offset, search }) {
           `;
         })
         .join("");
+
       params.next = data[data.length - 1].userId;
-      console.log("current param", params);
+      if (searchBool != "") {
+        document.getElementById("next").classList.add("disabled");
+      } else {
+        document.getElementById("next").classList.remove("disabled");
+      }
       document.querySelector("#app").insertAdjacentHTML("afterend", html);
       document.getElementById("index-loader").style.display = "none";
     })
@@ -133,7 +132,6 @@ function toTitleCase(str) {
 function clearTable() {
   let table = document.getElementById("tbId");
   var tbodyRowCount = table.tBodies[0].rows.length; // 3
-  console.log(tbodyRowCount);
 
   for (let i = 1; i < tbodyRowCount; i++) {
     table.deleteRow(1);
@@ -143,12 +141,9 @@ function clearTable() {
 
 function next() {
   params.offset = params.next + 1;
-  console.log("next", params);
   fetchUsers(params);
 }
 
-function previous() {
-  params.offset = params.prv;
-  console.log("prv", params);
-  fetchUsers(params);
+function reset() {
+  init();
 }

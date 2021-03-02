@@ -1,19 +1,6 @@
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,700&display=swap');
 
-td,
-th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
 
 /* .select-box {
   margin-top: 1px;
@@ -44,73 +31,67 @@ tr:nth-child(even) {
 }
 
 /* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+.close { color: #FFFFFF;background: #2196f3; border-radius: 50%; cursor: pointer; float: right; font-size: 28px; font-weight: bold; position: absolute; right: 10px; top:10px; text-align: center; width: 30px; height: 30px; line-height: 28px; opacity: 1;}
+.card {box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);}
+
+.container { padding: 0 16px;}
+
+.container::after, .row::after { content: ""; clear: both;display: table;}
+
+.title {color: grey;}
+
+.cap::first-letter {text-transform: uppercase;}
+
+.footer {text-align: center;}
+
+
+
+*{box-sizing: border-box;}
+body{margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; font-weight: 400;}
+header{ float: left; width: 100%; background: #2196f3; padding: 20px 30px;}
+header nav{ float: left; width: 100%; text-align: center; background: none; color: #FFFFFF;}
+header nav ul{margin: 0; padding: 0; list-style: none; display: inline-block;}
+header nav a{ text-decoration: none; color: #FFFFFF; cursor: pointer; display: inline-block; font-weight: 700; letter-spacing: 2px; }
+header nav a:hover{ text-decoration: none; color: #FFFFFF;  }
+
+section{ float: left; width: 100%; padding:30px 0; }
+.wrapper{ margin: 0 auto; width: 90%; max-width: 1000px; }
+h1{ float: left; width: 100%; text-align: center; padding: 20px; font-size: 30px; font-weight: 700; }
+.grey_bg{ float: left; width: 100%; background: #eff6ff; border-radius: 10px; margin: 30px 0; padding: 30px; }
+.form_top{ float: left; width: 100%; }
+.form_top div{ float:left; width: 50%; }
+.form_top div h2{float: left; width: 100%; text-align: left; line-height: 42px; font-size: 20px; font-weight: 700;}
+
+.form_top div.right{ text-align: right; float: right; max-width: 300px; }
+form.search input[type="text"] { float:left; width:calc(100% - 50px); font-size: 16px; line-height: 40px;height: 42px; padding: 0 15px;  border:none; float: left; width: 80%; background: #FFFFFF; border-top-left-radius:5px; border-bottom-left-radius: 5px; }
+form.search button { float: left; width: 50px; height: 42px text-align: center; line-height: 40px; background: #2196f3; color: white; font-size: 18px; border: none; cursor: pointer; border-left: none; cursor: pointer;border-top-right-radius:5px; border-bottom-right-radius: 5px;}
+form.search button:hover { background: #0b7dda;}
+input:focus, form.search button:focus {border:none; outline: none;}
+form.search::after {content: "";clear: both;display: table;}
+
+.table_div{ float: left; width: 100%; margin-top: 20px; }
+table { border-collapse: collapse;width: 100%; border:none !important;}
+td, th { border: 1px solid #dddddd; text-align: left; padding: 8px; border:none !important;}
+tr:nth-child(even) { background-color: #FFFFFF;}
+th{ border-bottom: 2px #e4e4e4 solid !important; font-weight: 700; text-transform: uppercase; color: #989898 !important; letter-spacing: 2px; font-size: 13px; }
+tbody{border-bottom: 2px #e4e4e4 solid !important;}
+
+.form_bottom{ float: left; width: 100%; }
+.form_bottom div.right{float:right; width: 50%; max-width: 150px;}
+.form_bottom ul{ float: left; width: 150px }
+
+footer{ float: left; width: 100%; text-align: center; padding: 20px; background: #EDEDED; }
+.card{padding: 30px;}
+.card img{ float:left; width: 100%; margin-bottom: 20px; border-radius: 10px; }
+.card h2{float: left; width: 100%; text-align: left; line-height: 36px; font-size: 24px; font-weight: 700; margin-bottom: 0;}
+.card .title{ background: #2196f3; float: left; width: auto; color: #FFFFFF; font-size: 12px; text-transform: uppercase; padding: 0 8px; line-height: 22px; clear: both; border-radius: 3px; letter-spacing: 1px; }
+.card h6{ float:left; width: 100%; margin-top: 5px; }
+.card h6 b{ float: left; width: 100%; color: #989898;letter-spacing: 2px; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; }
+.card address{ float: left; width: 100%; font-weight: 400; font-size: 13px; }
+.card .container{ padding: 0 !important; }
+
+@media screen and (max-width: 650px) {
+ .form_top div.right, .form_top div{ float:left; width: 100%; max-width: 100%;} 
+ form.search input[type="text"]{width: calc(100% - 50px);}
 }
 
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.container {
-  padding: 0 16px;
-}
-
-.container::after,
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.title {
-  color: grey;
-}
-
-.cap::first-letter {
-  text-transform: uppercase;
-}
-
-.footer {
-  text-align: center;
-}
-
-form.search input[type="text"] {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
-}
-
-form.search button {
-  float: left;
-  width: 20%;
-  padding: 10px;
-  background: #2196f3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
-}
-
-form.search button:hover {
-  background: #0b7dda;
-}
-
-form.search::after {
-  content: "";
-  clear: both;
-  display: table;
-}

@@ -21,66 +21,59 @@
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Home</a>
-        </li>
-      </ul>
-    </nav>
-    <div class="container">
-      <h2></h2>
-      <div class="jumbotron">
-        <div class="form-group row col-md-3">
-          <label for="email">List Of Users</label>
-          <form
-            class="search"
-            action="#"
-            style="margin: auto; max-width: 300px"
-          >
-            <input
-              type="text"
-              id="search"
-              placeholder="Search.."
-              name="search2"
-            />
-            <button type="button" onclick="searchName()">
-              <i class="fa fa-search"></i>
-            </button>
-          </form>
-        </div>
-        <table id="tbId" class="table responsive table-bordered">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-            </tr>
-          </thead>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+        </ul>
+      </nav>
+    </header>
 
-          <tbody id="tbodyId">
-            <tr id="app"></tr>
-          </tbody>
-          <div id="index-loader" class="loader"></div>
-        </table>
-        <div class="row">
-          <div class="col-md-2">
+    <section>
+      <div class="wrapper">
+        <div class="grey_bg">
+          <div class="form_top">
+            <div><h2>List Of Users</h2></div>
+            <div class="right">
+              <form class="search" action="#">
+                <input
+                  type="text"
+                  id="search"
+                  placeholder="Search.."
+                  name="search2"
+                />
+                <button type="button" onclick="searchName()">
+                  <i class="fa fa-search"></i>
+                </button>
+              </form>
+            </div>
+            <!--right-->
+          </div>
+          <!--form_top-->
+          <div class="table_div">
+            <table id="tbId" class="table responsive table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                </tr>
+              </thead>
+
+              <tbody id="tbodyId">
+                <tr id="app"></tr>
+              </tbody>
+              <div id="index-loader" class="loader"></div>
+            </table>
+          </div>
+          <!--table_div-->
+          <div class="form_bottom">
             <ul class="pagination">
-              <li
-                onclick="previous()"
-                id="prv"
-                class="page-item disabled pointer"
-              >
-                <a class="page-link">Previous</a>
-              </li>
-              <li></li>
-              <li id="nxt" onclick="next()" class="page-item pointer">
-                <a class="page-link">Next</a>
+              <li style="display: none;" id="next" class="page-item">
+                <a class="page-link" onclick="next()" href="#">Next</a>
               </li>
             </ul>
-          </div>
-          <div class="col-md-2 select-box">
-            <div class="form-group">
+            <div class="form-group right">
               <select
                 class="form-control"
                 onchange="init(this.value)"
@@ -93,18 +86,22 @@
               </select>
             </div>
           </div>
+          <!--form_bottom-->
+        </div>
+        <!--grey_bg-->
+      </div>
+      <!--wrapper-->
+
+      <div class="container">
+        <!-- Trigger/Open The Modal -->
+        <!-- The Modal -->
+        <div id="user-detail" class="modal">
+          <!-- Modal content -->
+          <div id="detail" class="card modal-content animate-bottom"></div>
         </div>
       </div>
-      <!-- Trigger/Open The Modal -->
-      <!-- The Modal -->
-      <div id="user-detail" class="modal">
-        <!-- Modal content -->
-        <div id="detail" class="card modal-content animate-bottom"></div>
-      </div>
-    </div>
-    <div class="footer">
-      <p>All rights Reserved ©, 2021</p>
-    </div>
+    </section>
+    <footer>All rights Reserved ©, 2021</footer>
   </body>
   <script src="index.js"></script>
 </html>
