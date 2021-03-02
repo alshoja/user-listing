@@ -32,7 +32,7 @@ document.addEventListener("click", function (e) {
   }
 });
 
-
+// Changing Limit 
 function offsetChange(limitValue) {
   if (limitValue >= 10) {
     params.limit = limitValue;
@@ -42,14 +42,14 @@ function offsetChange(limitValue) {
   fetchUsers(params);
 }
 
+// Search by name
 function searchName() {
   const searchValue = document.getElementById("search").value;
   params.search = searchValue;
   fetchUsers(params);
 }
 
-
-
+//  Fetch users with param
 function fetchUsers({ limit, offset, search }) {
   var searchBool = search;
   fetch(url + "users?name=" + search + "&limit=" + limit + "&offset=" + offset)
@@ -89,6 +89,7 @@ function fetchUsers({ limit, offset, search }) {
     });
 }
 
+// Fetch a user by id
 function fetchUserById(id) {
   document.getElementById("detail").innerHTML = `<div class="loader"></div>`;
   fetch(url + "user/" + id)
@@ -120,12 +121,14 @@ function fetchUserById(id) {
     });
 }
 
+// Make any string values to Uppercase
 function toTitleCase(str) {
   return str.replace(/\w\S*/g, function (txt) {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }
 
+// Clear the table for rendering new contents
 function clearTable() {
   let table = document.getElementById("tbId");
   var tbodyRowCount = table.tBodies[0].rows.length; // 3
@@ -136,6 +139,7 @@ function clearTable() {
   document.getElementById("app").innerHTML = `<tr id="app"></tr>`;
 }
 
+// To view next Items
 function next() {
   params.offset = params.next + 1;
   fetchUsers(params);
