@@ -1,11 +1,41 @@
 let modal = document.getElementById("user-detail");
 let span = document.getElementsByClassName("close")[0];
 
-// fetching initial users
-fetchUsers();
+let params = {
+  limit: 10,
+  offset: 0,
+  search: "",
+};
 
-function fetchUsers() {
-  fetch("https://hr.oat.taocloud.org/v1/users?limit=10&offset=0")
+function searchName() {
+  const searchValue = document.getElementById("search").value;
+  params.search = searchValue;
+  fetchUsers(params);
+}
+
+function init(limitValue) {
+  if (limitValue >= 10) {
+    params.limit = limitValue;
+  } else {
+    params.offset = 0;
+  }
+  console.log('current tparam',params);
+  fetchUsers(params);
+}
+
+// fetching initial users
+fetchUsers(params);
+
+function fetchUsers({ limit, offset, search }) {
+  var Svalue = search;
+  fetch(
+    "https://hr.oat.taocloud.org/v1/users?name=" +
+      search +
+      "&limit=" +
+      limit +
+      "&offset=" +
+      offset
+  )
     .then((res) => {
       if (!res.ok) {
         throw Error("Some error occured");
@@ -13,11 +43,13 @@ function fetchUsers() {
       return res.json();
     })
     .then((data) => {
+      console.log("data", data);
+      clearTable();
       const html = data
-        .map((user,i) => {
+        .map((user, i) => {
           return `
-          <tr>
-          <td>${i+1}</td>
+          <tr id="app">
+          <td>${i + 1}</td>
           <td><a href="#" data-category="${
             user.userId
           }" id="user-modal">${toTitleCase(user.firstName)}</a></td>
@@ -26,8 +58,8 @@ function fetchUsers() {
           `;
         })
         .join("");
+      document.querySelector("#app").insertAdjacentHTML("afterend", html);
       document.getElementById("index-loader").style.display = "none";
-      document.querySelector("#app").insertAdjacentHTML("afterbegin", html);
     })
     .catch((err) => {
       console.log(err);
@@ -46,7 +78,7 @@ function fetchUserById(id) {
     .then((data) => {
       const modalHtml = `
           <span id="close" class="close">&times;</span>
-          <img src="${data.picture}" alt="Jane" style="width:100%">
+          <img src="${data.picture}" style="width:100%">
           <div class="container">
             <h2>${toTitleCase(data.title)} </span> ${toTitleCase(
         data.firstName
@@ -90,3 +122,14 @@ document.addEventListener("click", function (e) {
     modal.style.display = "none";
   }
 });
+
+function clearTable() {
+  let table = document.getElementById("tbId");
+  var tbodyRowCount = table.tBodies[0].rows.length; // 3
+  console.log(tbodyRowCount);
+
+  for (let i = 1; i < tbodyRowCount; i++) {
+    table.deleteRow(1);
+  }
+  document.getElementById("app").innerHTML = `<tr id="app"></tr>`;
+}

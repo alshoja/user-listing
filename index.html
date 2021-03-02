@@ -11,7 +11,12 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" type="text/css" media="screen" href="loader.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
   </head>
@@ -28,15 +33,34 @@
       <div class="jumbotron">
         <div class="form-group row col-md-3">
           <label for="email">List Of Users</label>
-          <input type="text" placeholder="Search by Name" class="form-control" id="email" />
+          <form
+            class="search"
+            action="#"
+            style="margin: auto; max-width: 300px"
+          >
+            <input
+              type="text"
+              id="search"
+              placeholder="Search.."
+              name="search2"
+            />
+            <button type="button" onclick="searchName()">
+              <i class="fa fa-search"></i>
+            </button>
+          </form>
         </div>
-        <table class="table responsive table-bordered">
-          <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-          <tbody id="app"></tbody>
+        <table id="tbId" class="table responsive table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+            </tr>
+          </thead>
+
+          <tbody id="tbodyId">
+            <tr id="app"></tr>
+          </tbody>
           <div id="index-loader" class="loader"></div>
         </table>
         <div class="row">
@@ -49,13 +73,13 @@
               <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
           </div>
-          <div class="col-md-1 select-box">
+          <div class="col-md-2 select-box">
             <div class="form-group">
-              <select class="form-control" id="sel1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+              <select class="form-control" onchange="init(this.value)" id="limit">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
               </select>
             </div>
           </div>
