@@ -1,6 +1,6 @@
 let modal = document.getElementById("user-detail");
 let span = document.getElementsByClassName("close")[0];
-
+const url = "https://hr.oat.taocloud.org/v1/";
 let params = {
   limit: 10,
   offset: 0,
@@ -48,14 +48,7 @@ fetchUsers(params);
 
 function fetchUsers({ limit, offset, search }) {
   var searchBool = search;
-  fetch(
-    "https://hr.oat.taocloud.org/v1/users?name=" +
-      search +
-      "&limit=" +
-      limit +
-      "&offset=" +
-      offset
-  )
+  fetch(url + "users?name=" + search + "&limit=" + limit + "&offset=" + offset)
     .then((res) => {
       if (!res.ok) {
         throw Error("Some error occured");
@@ -94,7 +87,7 @@ function fetchUsers({ limit, offset, search }) {
 
 function fetchUserById(id) {
   document.getElementById("detail").innerHTML = `<div class="loader"></div>`;
-  fetch("https://hr.oat.taocloud.org/v1/user/" + id)
+  fetch(url + "user/" + id)
     .then((res) => {
       if (!res.ok) {
         throw Error("Some error occured");
